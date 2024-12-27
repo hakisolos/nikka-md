@@ -196,9 +196,9 @@ conn.ev.on("group-participants.update", async (data) => {
 
   // Handle presence based on config.PRESCENCE
   if (config.PRESCENCE === "typing") {
-    conn.sendPresenceUpdate("composing", chatId); // Sends "typing"
+    conn.PresenceUpdate("composing", chatId); // Sends "typing"
   } else if (config.PRESCENCE === "recording") {
-    conn.sendPresenceUpdate("recording", chatId); // Sends "recording"
+    conn.PresenceUpdate("recording", chatId); // Sends "recording"
   } else if (config.PRESCENCE === "none") {
     // No action if PRESCENCE is "none"
     console.log("Presence mode is set to 'none'. No presence updates sent.");

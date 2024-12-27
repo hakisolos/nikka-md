@@ -194,10 +194,19 @@ conn.ev.on("group-participants.update", async (data) => {
 
   const chatId = msg.from;
 
-  // Simulate always typing when a message is received
-  setInterval(() => {
-    conn.sendPresenceUpdate("composing", chatId);
-  }, 2000); // Sends typing every 2 seconds
+  // Check for the presence mode set in the config
+  if (config.PRESCENCE === "typing") {
+    setInterval(() => {
+      conn.sendPresenceUpdate("composing", chatId);
+    }, 2000); // Sends "typing" every 2 seconds
+  } else if (config.PRESCENCE === "recording") {
+    setInterval(() => {
+      conn.sendPresenceUpdate("recording", chatId);
+    }, 2000); // Sends "recording" every 2 seconds
+  } else if (config.PRESCENCE === "none") {
+    // Do nothing if PRESCENCE is set to "none"
+    console.log("Presence mode is set to 'none'. No presence updates sent.");
+  }
 });
       conn.ev.removeAllListeners("messages.upsert");
       conn.ev.on("messages.upsert", async (m) => {

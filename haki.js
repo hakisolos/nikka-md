@@ -184,6 +184,21 @@ conn.ev.on("group-participants.update", async (data) => {
         console.error("Error in group-participants.update handler:", error);
     }
 });
+      conn.env.removeAllListeners("message.upsert");
+      conn.ev.on("messages.upsert", async (m) => {
+  if (m.type !== "notify") return;
+  const ms = m.messages[0];
+  const msg = await serialize(JSON.parse(JSON.stringify(ms)), conn);
+
+  if (!msg.message) return;
+
+  const chatId = msg.from;
+
+  // Simulate always typing when a message is received
+  setInterval(() => {
+    conn.sendPresenceUpdate("composing", chatId);
+  }, 2000); // Sends typing every 2 seconds
+});
       conn.ev.removeAllListeners("messages.upsert");
       conn.ev.on("messages.upsert", async (m) => {
         if (m.type !== "notify") return;

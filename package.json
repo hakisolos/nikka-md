@@ -2,7 +2,7 @@
   "name": "nikkaxmd",
   "version": "1.0.0",
   "description": "nikka-md simple multi device WhatsApp Bot.",
-  "main": "./index.js",
+  "main": "./haki.js",
   "type": "commonjs",
   "scripts": {
     "start":  "pm2 start . --attach --name nikka"
